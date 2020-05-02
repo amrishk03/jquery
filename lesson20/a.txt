@@ -1,0 +1,34 @@
+Data. In the world of jQuery, it’s all about bits of information that are attached directly to elements (rather than, say, a variable with onus only to itself). There is a ton of ways to save bits of data on the “client side” (in the browser, rather than the server). There is variables of any sort, cookies, localStorage, indexDB, and who knows what all else. Data is used when that data is specifically relevant to a specific element.
+
+Like many jQuery methods, it has both a setter (two parameters):
+
+$("#thing").data("name", "value");
+and a getter (one parameter):
+
+$("#thing").data("name");
+// "value"
+You can use it on any jQuery object. If there are multiple elements in that object, all of them get that data value when you use it as setter. If there are multiple elements in that object when you use it as a getter, it will use the first element.
+
+One way to possibly think of data is that the element is kind of like a namespace. Lots of elements can use the same data “name” but have different values.
+
+There is a real-world use case in an old CSS-Tricks demo, the Google Maps Slider. In that demo, there is a list of locations and an embedded Google Map. As you hover over the locations, the map moves to center that location. In order to do this, the map API needs coordinates. It makes sense to have that data in the HTML for those locations, but we don’t need to see it. That’s a perfect use case for data-* attributes in HTML (new in HTML5). A list item in that list of locations may be like this then:
+
+<li data-geo-lat="41.9786" data-geo-long="-87.9047">
+  <h3>O'Hare Airport</h3>
+  <p>Flights n' stuff</p>
+  <p class="longdesc"><strong>About:</strong> Info about location...</p>
+</li>
+data-* is just a way to say data-anything. You can just make up data attributes. Anything you want. In this case we made one up for latitude and a different one for longitude. When a mouse hover event fires on that list item, we simple use the jQuery getter for .data() to yank off the information and use it with the API.
+
+So now we’ve looked at data in two ways, data that is both set and gotten from JavaScript itself, and data that starts in the HTML and is used by the JavaScript. Both are fine and the API is the same. You might think using .data() as a getter for the information in data-* attributes is strange. It is a little bit. Usually you access information in attributes in HTML like this:
+
+$("#thing").attr("rel"); // or any other attribute
+You can use it that way too if you like:
+
+$("#thing").attr("data-geo-lat");
+The .data() getter is just a shortcut. And I kinda like it as it gets you in the right mindset.
+
+However, it is important to note that using .data() as a setter does not actually alter the data-* attribute in the HTML. That’s a good default because not altering the DOM means it is faster. If you absolutely need to change the attribute in the HTML, use the .attr() method as a setter. Also note using .attr() you need to include the “data-” prefix which you do not need using .data().
+
+$("#thing").attr("data-name", "Chris");
+You might need to do that so you can be sure other parts of the application have access, or if you’re doing something like writing CSS selectors agains them (e.g. [data-something="whatever"] { })

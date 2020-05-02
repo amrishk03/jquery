@@ -1,0 +1,22 @@
+In this screencast I cover the absolute bare minimum setup for utilizing jQuery on a “real” website. We have an index.html file with the basic HTML5 structure stubbed out. jQuery is included as a <script> and then we perform a super simple jQuery task. The entire file looks like this:
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Learning jQuery</title>
+</head>
+<body>
+  
+  <h1>Hello, World!</h1>
+
+  <script src="js/jquery-2.0.3.js"></script>
+  <script>
+    $("h1").css("color", "red");
+  </script>
+
+</body>
+</html>
+I wanted to cover that right away so that you can experience how easy using jQuery can be. And also because we’ll be using CodePen for a lot of live coding for the rest of the series. CodePen just gives us a testing / demonstration environment that is easy to work with and great for screencasts. What it is doing behind the scenes is essentially the same as what we just did here. I wanted that to be understood – so you don’t think using CodePen is some strange/magical place that is different from how you would write code.
+
+The same exact thing as we did with the index.html file is like this on CodePen:

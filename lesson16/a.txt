@@ -1,0 +1,13 @@
+Since we just talked about events, now is a good time to mention custom events. All the events that we’ve talked about so far are “real” events so to speak. Events that originate in the DOM based on real things that happen, like a click or key press. These events can be “triggered” artificially in jQuery. For example, to “fake” a click on a button, you could do:
+
+$("#some-button").trigger("click");
+Then any click handlers bound to that button will fire as if a user really clicked on that button. But what if we did:
+
+$("#some-button").trigger("dance");
+What happens then? “dance” is not a “real” event. But no error will be thrown. It just so happens there probably isn’t any “dance” handlers bound to that button. But there could be and that’s essentially what a custom event is. An event with a name that you just make up.
+
+Why would you do that? Mostly organizational reasons. Perhaps you like to separate your JavaScript that handles events and actions, and your JavaScript that handles data and administrative stuff. That’s very reasonable. If this button were perhaps a “Save Settings” button, you could simply fire off a custom event named “save-settings” and elsewhere have a handler that waits for that event to fire and does the actual saving of data. That’s essentially what we did in the example from the video.
+
+Another use case for custom events is authoring generic UI components. I talk about that in this blog post.
+
+Perhaps you’re creating an accordion effect as a UI component. The accordion does what all accordions to, opens and closes panels on clicks/taps. Your UI component does that very nicely. Now a developer that uses that accordion might have special and unique things they want to happen with it. Say they are using the accordion for account settings, and when a user closes a panel, they want to save the data from the form elements in that panel. A traditional model might be for the author of that accordion UI component to offer callback functions when that action happens. When you initialize the accordion, you pass in callback functions that you want called when those things happen. That’s one road to go down. Another road would be for the accordion to just automatically fire off custom events for all the relevant actions that it does. When that panel closes, it could fire off a panelClosed event on the accordion element itself. Then developers working with it could just bind to those events. It’s just another road you can go down for organization reasons that can be quite elegant.

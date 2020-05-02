@@ -1,0 +1,10 @@
+body {
+    background-color: #a3d5d3;
+}
+
+.module {
+    width  : 280px;
+    border : 1px solid gray;
+    padding: 1rem;
+    margin : 1rem;
+}

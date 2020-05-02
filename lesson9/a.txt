@@ -1,0 +1,32 @@
+The concept of getters and setters in JavaScript is just one of those things you should understand. They are nice in jQuery because the API is so consistent that once you get it, you can pretty much just guess how it is going to work for various methods. At the most basic level…
+
+
+Setters do something.
+Getters return a value.
+
+Often a single method can be used either way. Take the height method for example.
+
+// Used as a "setter" - will set the height
+$("#example").height(100);
+
+// Used as a "getter" - will return a value
+var theHeight = $("#example").height();
+See the difference? The setter passes a parameter when the method is used. The getter passes nothing. That’s how jQuery itself knows what to do. It just tests if there is a parameter there or not. If not, it behaves like a getter. If it is there, it behaves like a setter. It’s merely a nice API convenience, rather than having separate methods like getHeight and setHeight.
+
+It’s worth noting that a getter used by itself does nothing.
+
+// Useless
+$("#example").height();
+And if you set the value of a variable using a setter, you’ll get the jQuery object returned.
+
+// x will be a jQuery object containing #example
+var x  = $("#example").height(100);
+That can be a hair confusing, but also a nifty little trick for saving code. If you know you need to both cache that jQuery object and set it’s height, might as well do it in one line of code.
+
+
+Also mentioned in the article is box-sizing: border-box;. Box sizing is a super useful CSS property. I’m a big proponent of setting it on all elements, like:
+
+* {
+  box-sizing: border-box;
+}
+As noted in the video, this also makes height() in jQuery a bit more predictable and consistent. Without border-box set, height() is equal to the height property in CSS, or whatever height the element naturally is, minus the padding and border. With border-box set, the height() is exactly how much height that element takes up on the screen, including padding and border. Without border-box set, to get that, you need to use outerHeight() in jQuery.

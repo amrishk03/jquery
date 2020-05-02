@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Lesson 4</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='../jquery-3.5.0.min.js'></script>
+    <script src='main.js'></script>
+</head>
+
+<body>
+    <h1>Jquery Selectors</h1>
+    <dl class="list" id="def">
+        <dt>Terms</dt>
+        <dd>Defintion</dd>
+        <dt>Terms</dt>
+        <dd>Defintion</dd>
+        <dt>Terms</dt>
+        <dd>Defintion</dd>
+        <dt>Terms</dt>
+        <dd id="foo">Defintion</dd>
+        </dt>
+    </dl>
+
+    <input type="checkbox" checked>
+    <input type="checkbox">
+    <script>
+        $("body").css("background", "pink");
+
+        $(".list").show();
+
+        $("#def dt").show();
+
+        $("dt:nth-of-type(2)").html("my <span>defination</span>");
+
+        console.log($("input:checked"));
+
+        // https://api.jquery.com/category/selectors/
+    </script>
+</body>
+
+</html>

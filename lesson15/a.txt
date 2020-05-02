@@ -1,0 +1,29 @@
+We’ve talked a number of times now about little touches in the jQuery API that are really quite nice. Everything is well considered and refined. Chaining definitely falls into that category. Once you start using it and understand it, it feels extremely natural, like there should be no other way.
+
+The main idea is that you use multiple methods in a row on a single collection of elements.
+
+For instance, let’s say after I click a button I want to change a class as well as change some text. But the button has some HTML inside.
+
+<button class="button open">
+  <span class="icon"></span>
+  <span class="text">Open</span>
+</button>
+With jQuery, we can “chain” the entire series of actions together.
+
+$(".button")
+  .removeClass("open")
+  .addClass("closed")
+  .find(".text")
+  .text("Closed");
+This is possible because most of jQuery’s methods, while used as a setter, return an element set just like the one the method was called on. Sometimes that set is exactly the same, like is the case with removeClass and addClass here, and sometimes that set is altered like is the case here with find.
+
+In the example we worked with in the video, we also talked about .end() which “backs out” one level on the chain.
+
+$(".button")
+  .removeClass("open")  // .button
+  .addClass("closed")   // .button
+  .find(".text")        // .button .text
+    .text("Closed")     // .button .text
+    .end();             // .button
+  .data("thing");       // GETTER on .button
+Perhaps that explains it better. When the set of elements changes, I indented the line one and noted the change in the comment. Then when we .end() it backs back out one level. This works no matter how many times you change the selection. It all ends when you use a method that returns something other than a set of elements.

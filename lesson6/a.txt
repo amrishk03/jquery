@@ -1,0 +1,31 @@
+jQuery can select anything that CSS3 can select. But it doesn’t stop there! There are a number of additional selectors that jQuery offers (via the Sizzle selector engine) that are pretty darn useful sometimes. For instance, CSS has attribute selectors that allow you to select an element based on any arbitrary attribute the element might have. For instance:
+
+
+<div data-whatever="elephant-eyeballs"></div>
+There is a CSS selector we can use in jQuery to select that:
+
+$("[data-whatever='elephant-eyeballs']");
+There are variations on the attribute selector, like instead of = you can do ^= to indicate “starts with this value”. But for some reason, CSS doesn’t have != or “not equal to this value”. jQuery does! That’s an example of a jQuery selector extension.
+
+There are lots of these selector extensions. A few we specifically talk about in this screencast:
+
+:eq() – a 0-indexed version of :nth-child()
+:even – shortcut for :nth-child(even)
+:gt(n) – select elements with a greater index than n. Also a shortcut for a more complex :nth-child() forumla.
+Possibly the most useful selector extension of all is :has() – which limits the selection to elements which contain what you pass this pseudo selector (or is it a pseudo pseudo selector :) It’s likely that someday in the future CSS will have something like this for us (I think it’s going to be like pre ! code) but that’s a long way off. Unfortunately I don’t make a very compelling argument for it in this screencast, but you’ll know when you need it! For instance “Select all .module’s that contain an h3.sports-bar” – that kind of thing.
+
+You can also make your own selection extensions if you wish. Here’s an article on that. The example is to make :inview which selects an element only if it’s visible on the page at the current scroll position. It would be like this:
+
+jQuery.extend(jQuery.expr[':'], {  
+  inview: function (el) {    
+    var $e = $(el),    
+        $w = $(window),    
+        top = $e.offset().top,   
+        height = $e.outerHeight(true),    
+        windowTop = $w.scrollTop(),    
+        windowScroll = windowTop - height,    
+        windowHeight = windowTop + height + $w.height();    
+
+    return (top > windowScroll && top < windowHeight);  
+  }
+});

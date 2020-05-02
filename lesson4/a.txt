@@ -1,0 +1,14 @@
+In CSS, you can select all <h1> elements on the page with this:
+
+
+h1 {
+ /* style all <h1> elements */
+}
+In jQuery, you can use that exact same selector.
+
+$("h1") // set of all <h1> elements
+In fact, you can use any CSS selector (even CSS3 selectors) in jQuery. In this screencast we even used the :nth-of-type selector to select the second definition term in a definition list:
+
+$("dt:nth-of-type(2)")
+  .html("I'm the second definition term!");
+That .html() method is a useful one. It allows you to change (or get) the “innerHTML” of an element. As in, not the element itself, but everything inside of it. The “guts” you could say. It is similar to the .text() method, but text() is literally just for text. It won’t return actual HTML from inside the element. So if the “guts” were Some <span>text</span>, it would just return “Some text”. Setting text with it will escape any HTML you put in, meaning you would literally see the “<span>”. Getting text with it is unique as well, for if you select multiple elements, it will return the combined text from all of them, which is unique in jQuery. In other cases when you “get” a value from a method, it will return the value from the first in the set. Like .height() will just return the height from the first element in the set.

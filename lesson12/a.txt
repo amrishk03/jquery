@@ -1,0 +1,36 @@
+If you first dabbled with jQuery many years ago, it might have been it’s ability to do animation. That was perhaps one of jQuery’s first big draws. These days, CSS can do animation as well with fairly decent browser support and it tends to be more performant, so it’s less relevant. However, if you need super deep browser support, jQuery is absolutely still an option.
+
+
+We’ve already covered how to change CSS in jQuery. It looks like this:
+
+$("#element").css({
+  "background-color": "red",
+  "left": "20px"
+});
+Instead of instantly shifting that element to those values, we can animate them. It looks almost exactly the same:
+
+$("#element").animate({
+  "background-color": "red",
+  "left": "20px"
+});
+Here’s the Pen we made in the video:
+
+
+If we inspect that element in the browsers dev tools, we can see under the hood on how jQuery is doing that animation. Essentially, it rapidly iterates the inline styling applied to that elements
+
+<div id="element" style="top: 0px"></div>
+<div id="element" style="top: 1px"></div>
+<div id="element" style="top: 2px"></div>
+<div id="element" style="top: 3px"></div>
+<!-- etc -->
+In this video we dig into some jQuery code that someone else wrote to see how well we can dissect it.
+
+
+During that journey, we go on an interesting little side journey on animating to auto heights. This is something that neither CSS or JavaScript can do particularly well. They prefer hard numbers. Animate 10px to 200px makes sense. Animate 10px to “whatever you would normally be” isn’t as easy.
+
+In Josh’s code, we find a clever function that essentially sets the height to auto, measures it, sets it back to what it was, then animates to that newly tested value. Pretty neat trick! For a more robust demo that goes back and forth and in raw JavaScript, see here.
+
+I didn’t notice until after the video ended, but jQuery actually helps us out with this as well. File that under reason to use jQuery #40985. Using .slideUp / .slideDown / .slideToggle – it just works somehow, even if the element is hidden with display: none to start.
+
+
+To test our work in old IE, we used BrowserStack, which is also integrated in CodePen.

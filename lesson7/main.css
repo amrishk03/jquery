@@ -1,0 +1,8 @@
+#my-div {
+    display         : none;
+    background-color: red;
+}
+
+.active {
+    background-color: red;
+}

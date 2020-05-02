@@ -1,0 +1,42 @@
+Ajax ranks pretty high up there on the biggest reasons to use jQuery. Not only does jQuery fix the cross-browser issues, it makes the syntax very easy to use and understand.
+
+In this video we take a stab at explain what Ajax is at all. We look at a form element, which when submitted, does a GET or POST request (as determined by the method attribute) to the URL you specify (as determined by the action attribute). That’s just HTML, no backend code or JavaScript happening there at all. But that submission is going to cause the page to change, literally reload at the new URL, just like clicking a link.
+
+Ajax allows us to make that GET or POST request in the background, without reloading the page. At it’s core, that’s the entire point of Ajax. And it’s very powerful. It’s largely responsible for why modern websites work and feel the way they do.
+
+Ajax used to “stand for” Asynchronous JavaScript and XML, but that is largely ignored these days because it doesn’t mean much. Also hence the de-capitalization. You might also sometimes see “XHR” which is short for XMLHttpRequest, which is the native core technology of Ajax.
+
+The difference between GET and POST is essentially: GET is for getting information and shouldn’t be responsible for changing data and POST is specifically for changing data. Feel free to read more about that on this StackOverflow thread.
+
+Making a GET request in jQuery is amazingly easy:
+
+$.get(
+  "URL", 
+  function(data) {
+    // do something with data
+  });
+});
+The URL is where you’re hoping to get the data from. The second parameter is the callback function that runs when the Ajax request was successful. The most important parameter there is the first one, data, which has the information it got from the request.
+
+Ajax requests can fail sometimes. One reason for that failure might be the browser itself and its security policies. Baked into browsers themselves are rules about where content can be requested from. Requests can always be made to the same domain that the request is coming from. But if there is a different domain involved, that different domain will need to specifically allow it.
+
+You can read all about that at enable-cors.org. CORS standing for “Cross-Origin Resource Sharing”. We look at an example where CORS is not enabled and the Ajax request fails. One standard and easy way to fix that, assuming the server is Apache, is to set a header that specifically allows CORS through the .htaccess file:
+
+Header set Access-Control-Allow-Origin "*"
+In the video, we just move the Ajax request over to CodePen, which handles Ajax well by default.
+
+Easy cheesy:
+
+
+Ad for MongoDB
+CSS-Tricks Star LogoExplore the future of data development. Get technical with peers and experts across the globe. 100% virtual. 100% free.
+Jetpack Logo
+Chris Coyier AvatarWe use a ton of Jetpack's many features right here on CSS-Tricks. I'd say it's the most important WordPress plugin we use.
+Ad for Sentry
+CSS-Tricks Star LogoFind bugs before they cause problems for your users
+Ad for BEE
+CSS-Tricks Star LogoDrag-n-drop mobile responsive emails, faster! Great design flexibility and 350+ ready-to-use email templates.
+OUR LEARNING PARTNER
+Frontend Masters logo
+Need some front-end development training?
+Frontend Masters is the best place to get it. They have courses on all the most important front-end technologies, from React to CSS, from Vue to D3, and beyond with

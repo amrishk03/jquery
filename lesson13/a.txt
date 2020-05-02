@@ -1,0 +1,62 @@
+Handling events is another one of those big reasons to use jQuery. There are some cross browser differences in how to do, which jQuery normalizes into one simple API, while enforcing some best practices.
+
+There is essentially one method you need to know: .on() – it works like this:
+
+$("button").on("click", function() {
+  // do something
+});
+Here we’re giving the .on() method just two parameters. The name of the event (“click”) and a function to run when that event happens on any of the elements in that selection. Reads pretty cleanly, doesn’t it?
+
+People with some previous jQuery experience might be familiar with other binding methods like .bind(), .live(), or .delegate(). Don’t worry about those anymore, modern jQuery has combined them all into .on() which always does the best practice.
+
+When binding an event as we did above, you can (and it’s typically smart to) include a parameter name in the function. That parameter will be “the event object” inside the function:
+
+$("button").on("click", function(event) {
+  // event => "the event object"
+});
+Through that event object you get lots of information. You’re already a little familiar with it because we used it to .preventDefault() and .stopPropagation(). But there is also lots of other straight up information in that object. Things like what type of event it was (in case multiple events fire this same function), when it happened, where it happened (coordinates, if applicable), which element it happened on, and much more. It’s worth inspecting the event object regularly when coding.
+
+There is a concept of event delegation that is extremely important in working with events. It is a very smart modern day best practice. It incorporates the idea of scope.
+
+A traditional way to think about event binding is like “find all buttons on the page, and bind a click event to them.” That of course works, but it is:
+
+Not very efficient
+Fragile
+Not efficient because you’re immediately forcing JavaScript to find all those button elements when, with delegation, you could be just finding one easier-to-find element.
+
+Fragile because if more buttons get added to the page, they’ve already missed the boat on the binding and will need to be re-bound.
+
+With event delegation, you would bind that click event to an element that is higher up the DOM tree than the buttons that happens to contain all of them. Might be a <div> somewhere, might be the document itself. When you bind the click event to that higher-up element, you tell it that you’re still only interested in clicks that happened on buttons. Then when a button is clicked, through the nature of event bubbling, that click will eventually trigger on the higher-up element. But the event object will know if the original click happened on a button or not, and the function you’ve set to fire on that event will either fire or not fire knowing that information.
+
+In this screencast, we demonstrate that like this:
+
+<div id="scope">
+  <textarea></textarea>
+</div>
+$("#scope").on("click", "textarea", function(event) {
+  
+  // Do stuff!
+  console.log(event);
+  
+});
+Now imagine if we added another <textarea> to that <div id="scope">. We don’t need to re-bind any events, because the event is still happily bound to the scope and events will still bubble up from the newly-added textarea. This is particularly useful in web app environments where you’re regularly adding new elements to the page.
+
+Another good thing to know about jQuery event binding is that they aren’t mutually exclusive. If you add another click handler to the same exactly element that already has one, it will just add another one. You aren’t overwriting the previous one. jQuery just handles this fairly gracefully for you. You can always unbind them if you did indeed want to override a previously bound function.
+
+If it’s the same exact event, it is worth knowing that in order to unbind a specific one of them and not the other, you’ll need to namespace the events. That happens by using a dot in the event name, like click.namespace.
+
+$("#scope").on("click.one", "textarea", function(event) {  });
+$("#scope").on("click.two", "textarea", function(event) {  });
+
+// Just remove the first
+$("#scope").off("click.one", "textarea");
+.off(), as we haven’t mentioned it before, is how you unbind events.
+
+There are lots of possible DOM events. Click is the big main obvious one, but there is double clicking, mouseenter and mouseleave, keydown and keyup, form specific ones like blur and change, and tons more. If you’re interested in the complete list, you can get one like this.
+
+You can bind multiple events at the same time like this:
+
+$("#scope").on("keydown keyup", "textarea", function(event) {
+  console.log(event.keyCode); 
+});
+There are some circumstances where you are waiting for an event to happen, but once it does, you don’t care about it anymore or explicitly don’t want to fire off the function you had bound anymore. That’s what the .one() function is about. A standard use case for that is a form submit button (if you are handling with Ajax or whatever). You likely want to essentially disable that submit button after they have pressed it until you can process that information and give them the appropriate feedback. That’s not the only use case of course, but just keep that in mind. .one() == just once. 

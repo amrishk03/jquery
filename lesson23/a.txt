@@ -1,0 +1,34 @@
+We left off in the last video with a bit of a tangled mess. All in one block of JavaScript we were mixing data retrieval, display and business logic, and templating. In this video we’re going to start breaking those things up to get us on our way to more organized, maintainable, and understandable code. A big part of that is the templating.
+
+Take #1 on our templating adventure is with Handlebars. Handlebars has a clever approach in that the HTML for the template is literally put in the HTML. You use a special <script> tag. It makes for nice authoring because we can get away from the clumsiness of string concatenation (all those quotes and plusses) and get the nice syntax highlighting for HTML your editor provides. Our template ultimately looked like this:
+
+<script id="movie-template" type="text/x-handlebars-template">
+  <div class='module module-movie' style='background-image: url({{movieImage}})'>
+    <div class='movie-info'>
+      <h3 class='movie-title'>
+         {{movieTitle}}
+      </h3>
+      <p class='movie-director'>
+         {{movieDirector}} 
+      </p>
+    </div>
+  </div>
+</script>
+Note the weird type attribute on the script tag. That prevents the contents of that tag from executing. Ultimately Handlebars just yanks out the guts of this tag and turns it into a template function. Pretty clever way to handle it really.
+
+Those bits like {{movieTitle}} are the important parts. We ultimately pass an object to the templating function that gets created, and the properties of that object match these placeholder bits. Handlebars is named handlebars, presumably, because the those placeholder bits are wrapped in curly braces that look a bit like handlebars from above.
+
+Following the simple tutorial on the Handlebars website, we create our templating function like this:
+
+var source = $("#movie-template").html();
+var template = Handlebars.compile(source);
+Then within our for loop, we call our new templating function with the object (the context) that contains a single movie. The HTML will be returned, and we append it to the page.
+
+var html = template(data.movies[i]);
+$("#movies").append(html);
+We also take the template in this video and movie it to a different Pen. That just signifies how you would likely break up your own code in a real project. The template would almost certainly be an “include” of some kind.
+
+Here’s where we ended up:
+
+
+We’ve made some good strides here toward better code, but we have more to go to get it perfectly clean.

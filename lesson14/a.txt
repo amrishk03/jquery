@@ -1,0 +1,34 @@
+Everybody’s favorite: concept video time! Callbacks are an important concept in JavaScript. They are functions that are called when an action has completed running. Then lend structure and timing to our code.
+
+Take for example the animation we used in the last video. Animations take time to run. What if you want to have something else happen right when that animation finishes? Do you have to do a setTimeout for the same length as the animation? Nope. jQuery gives us callback functions used just for that purpose.
+
+They are typically an additional parameter that we pass to the method. In the case of animation, we pass a function as the last parameter. That is the callback function, and will be called when the animation is complete.
+
+$("#element").animate({
+  // stuff to animate
+}, function() {
+  // callback function
+});
+That looks a little funky perhaps, but essentially we’re just doing:
+
+.animate(a, b)
+Where a is an object of properties and values, and b is a callback function.
+
+But we know from the last video that animation can also take a timing parameter that specifies how long an animation will take. Where does that go? That’s an optional parameter, just like the callback function is. If we wanted to use it, we’d put it right in the middle, so essentially:
+
+.animate(propertiesObject, duration, callback);
+And there is another optional parameter too, a string we can pass to specify an easing value.
+
+.animate(propertiesObject, duration, easing, callback);
+jQuery just happens to be cool and smart about those optional parameters. If you leave out the middle two and just pass the callback, it can tell what you are passing is a function, not a number or string, so it knows you mean a callback function. You don’t have to pass in bogus values or anything. That’s just good API design!
+
+When you look at the jQuery documentation, they show it like this:
+
+.animate( properties [, duration ] [, easing ] [, complete ] )
+
+Then right after explain the expected types.
+
+But anyway, back to callbacks. You can get pretty nested. Imagine putting another animation in the callback function, and that animation has its own callback. That’s perfectly reasonable, as you might want to do a multi-step animation. You just need to stay organized.
+
+
+We’re just using animation as an example here. Perhaps an even more common use of callback functions is Ajax. Ajax is when the browser calls out for another resource without refreshing the page. That can take a completely unknown amount of time. It depends on bandwidth and latency and the size of the file and error conditions and all kinds of stuff. You likely can’t do anything with that Ajax request until you get something back or otherwise more information. Callback functions are perfect for that, and we’ll get into that later on.

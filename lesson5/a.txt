@@ -1,0 +1,92 @@
+We’ve talked a good bit about selectors. A jQuery selector like $(“h1”) will select all <h1> elements on the page. But what about… when it doesn’t? Here’s an example of when that selector would fail:
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Learning jQuery</title>
+
+  <script src="js/jquery-2.0.3.js"></script>
+  <script>
+    $("h1").css("color", "red");
+  </script>
+</head>
+
+<body>
+  
+  <h1>Hello, World!</h1>
+
+</body>
+
+</html>
+Will that <h1> element be red? Nope. WTF right? The reason it doesn’t turn red is because when that jQuery code runs, there is no <h1> for it to find yet. It hasn’t yet made it to the DOM. That is because your HTML is read from top to bottom. Imagine the browser reading the very first line, then the next, then the next. When it gets down to the line with the jQuery selector on it, it only knows about that line and all above it. So no <h1> is found and no color changing happens.
+
+How do we deal with this problem? The best way to handle this is to load JavaScript files at the bottom of your page. Right above the closing </body> tag. JavaScript files “block” page rendering as they are downloaded and ran, so it will make your page load faster anyway. But that means that our jQuery selectors will find everything they are supposed to find as a bonus.
+
+Loading the scripts at the bottom would look like this:
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Learning jQuery</title>
+</head>
+
+<body>
+  
+  <h1>Hello, World!</h1>
+
+  <script src="js/jquery-2.0.3.js"></script>
+  <script>
+    $("h1").css("color", "red");
+  </script>
+
+</body>
+
+</html>
+But sometimes scripts are loaded in the head. There are all kinds of excuses for it, mostly bad, but hey let’s not get too judge-y without details =).
+
+We can still fix the not-finding-elements issue in a pretty satisfactory way even if we are forced to load scripts in the head. We do it through the jQuery “DOM Ready” function. Literally, when the document is done and ready to be manipulated. It looks like this:
+
+$(document).ready(function() {
+
+});
+There is a shorter version which does the exact same thing:
+
+$(function() {
+
+});
+Putting your code inside a function like that ensures it won’t run until the document is ready. It’s actually a rather clever bit of code that does it, which of course is difficult to do cross-browser. What is cool about it is that it is pretty fast. It’s not the same as waiting for the entire window to load, which is slow, because it waits for all resources to be done downloading before firing. DOM ready happens much sooner. If you do need to wait for resources to be done (e.g. you need to measure an image), you can wait for that like this:
+
+$(window).load(function() {
+
+});
+Fixing our earlier JavaScript-in-the-head problem with DOM ready, the code would look like this:
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Learning jQuery</title>
+
+  <script src="js/jquery-2.0.3.js"></script>
+  <script>
+  $(function() {
+    $("h1").css("color", "red");
+  });
+  </script>
+</head>
+
+<body>
+  
+  <h1>Hello, World!</h1>
+
+</body>
+
+</html>

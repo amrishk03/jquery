@@ -1,0 +1,12 @@
+body {
+    padding: 1rem;
+}
+
+dt {
+    font-weight: bold;
+    margin     : 1rem 0 0.25rem 0;
+}
+
+dt span {
+    background: red;
+}

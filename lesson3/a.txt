@@ -1,0 +1,7 @@
+One way to think of jQuery is the “Select and Do” library. jQuery is particularly good at selecting elements on the page (stuff in the DOM) and then doing something. Select and do. Select and do.
+
+
+
+In this screencast we started using the Dev Tools in Google Chrome. We’ll be using Chrome for the rest of this series specifically because the Dev Tools are so good. But so far we’re just using them at a pretty basic level and pretty much any of the browsers have an equivalent version of these tools. What we use here is the ability to inspect the DOM and see what’s going on with our elements on the page. And most importantly, use the Console which allows us to write and execute little bits of JavaScript right on the page.
+
+We referenced the jQuery API documentation a bit, which is very good and useful and we’ll be using a lot. We specifically used the addClass() method and the css() method.

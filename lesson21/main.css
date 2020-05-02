@@ -1,0 +1,46 @@
+.module {
+    width   : 250px;
+    border  : 1px solid black;
+    position: relative;
+
+
+}
+
+.module img {
+    width : 100%;
+    height: auto;
+}
+
+.module h2 {
+    background: black;
+    color     : white;
+    margin    : 0;
+    padding   : 10px;
+}
+
+.module .content {
+    padding: 10px;
+}
+
+.module .bigger {
+    position: absolute;
+    top     : 260px;
+    right   : 10px;
+}
+
+.expended h2 {
+    color: red;
+}
+
+.module[data-state="expanded"] img {
+    width: 200%;
+}
+
+body {
+    padding  : 20px;
+    font-size: small;
+}
+
+p {
+    margin: 0;
+}

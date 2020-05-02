@@ -1,0 +1,155 @@
+One thing I want to make absolutely clear in this series is that none of us should be anti vanilla JavaScript. “Vanilla” meaning “raw” or “native” JavaScript. JavaScript that runs in the browser without any frameworks or libraries or anything else. In fact, if this isn’t obvious, jQuery itself is written in vanilla JavaScript. It has to be, to work. I’m sure internally it calls it’s own methods and such sometimes, but at the core “it’s just JavaScript”.
+
+As a rule of thumb, if I’m working on a site in which uses a handful of JavaScript to accomplish some small tasks (e.g. hide/show a few things), I’d learn toward not using a library like jQuery. Anything above and beyond that and the library will be worth its weight. In fact, I’ve never worked on any non-trivial website ever that didn’t use jQuery.
+
+Regardless if you’re working on a site that has it or doesn’t, it’s a good thing to learn at least the basics in vanilla JavaScript. I quite like this NetTuts+ article that shows equivalents (and another good one). I reference this one regularly:
+
+$('a').on('click', function() { });
+is essentially this:
+
+[].forEach.call( document.querySelectorAll('a'), function(el) {
+   el.addEventListener('click', function() { }, false);
+});
+Starting in the video, we had a button like this:
+
+<button id="press">Button</button>
+And as we’ve done over and over now, we got a reference to it like this:
+
+$("#press");
+To get that element in vanilla JavaScript we could:
+
+document.getElementById("press");
+Those things aren’t quite equivalent because the jQuery version is actually a jQuery object meaning it can do all that special jQuery stuff (e.g. every single jQuery method). But it is the exact same thing as:
+
+$("#press")[0];
+It’s important to know when we have a reference to an element like that, we have all kinds of useful information about it. Forgive the huge block, but it’s worth it to drive this home. Here’s just some of what we get off that button reference (as taken from Google Chrome DevTools):
+
+accessKey: ""
+attributes: NamedNodeMap
+autofocus: false
+baseURI: "http://s.codepen.io/pen/secure_iframe?turn_off_js=&mobile=false"
+childElementCount: 0
+childNodes: NodeList[1]
+children: HTMLCollection[0]
+classList: DOMTokenList
+className: ""
+clientHeight: 23
+clientLeft: 2
+clientTop: 0
+clientWidth: 58
+contentEditable: "inherit"
+dataset: DOMStringMap
+dir: ""
+disabled: false
+draggable: false
+firstChild: text
+firstElementChild: null
+form: null
+formAction: ""
+formEnctype: ""
+formMethod: ""
+formNoValidate: false
+formTarget: ""
+hidden: false
+id: "press"
+innerHTML: "Button"
+innerText: "Button"
+isContentEditable: false
+labels: NodeList[0]
+lang: ""
+lastChild: text
+lastElementChild: null
+localName: "button"
+name: ""
+namespaceURI: "http://www.w3.org/1999/xhtml"
+nextElementSibling: script
+nextSibling: text
+nodeName: "BUTTON"
+nodeType: 1
+nodeValue: null
+offsetHeight: 23
+offsetLeft: 0
+offsetParent: body
+offsetTop: 0
+offsetWidth: 62
+onabort: null
+onbeforecopy: null
+onbeforecut: null
+onbeforepaste: null
+onblur: null
+onchange: null
+onclick: null
+oncontextmenu: null
+oncopy: null
+oncut: null
+ondblclick: null
+ondrag: null
+ondragend: null
+ondragenter: null
+ondragleave: null
+ondragover: null
+ondragstart: null
+ondrop: null
+onerror: null
+onfocus: null
+oninput: null
+oninvalid: null
+onkeydown: null
+onkeypress: null
+onkeyup: null
+onload: null
+onmousedown: null
+onmouseenter: null
+onmouseleave: null
+onmousemove: null
+onmouseout: null
+onmouseover: null
+onmouseup: null
+onmousewheel: null
+onpaste: null
+onreset: null
+onscroll: null
+onsearch: null
+onselect: null
+onselectstart: null
+onsubmit: null
+onwebkitfullscreenchange: null
+onwebkitfullscreenerror: null
+outerHTML: "<button id="press">Button</button>"
+outerText: "Button"
+ownerDocument: document
+parentElement: body
+parentNode: body
+prefix: null
+previousElementSibling: null
+previousSibling: text
+pseudo: ""
+scrollHeight: 23
+scrollLeft: 0
+scrollTop: 0
+scrollWidth: 58
+shadowRoot: null
+spellcheck: true
+style: CSSStyleDeclaration
+tabIndex: 0
+tagName: "BUTTON"
+textContent: "Button"
+title: ""
+translate: true
+type: "submit"
+validationMessage: ""
+validity: ValidityState
+value: ""
+webkitPseudo: ""
+webkitRegionOverset: "undefined"
+webkitShadowRoot: null
+webkitdropzone: ""
+willValidate: true
+__proto__: HTMLButtonElement
+In the video we touch on using tagName, which can be useful when you’re determining if you’re looking at the right element in an event (sometimes events can trigger on nested elements and you need to make sure).
+
+We also look at some “old school” event binding with stuff like setting the onclick property. It’s problematic because of how easy it is to overwrite. We don’t even have to think (much) about that stuff with jQuery because it’s event binding methods don’t overwrite others. Yay good API design.
+
+Regarding finding elements, there is also getElementsByClassName, querySelector, and querySelectorAll (which even exists because of libraries like jQuery) which are all worth knowing about.
+
+You can learn about vanilla JavaScript from jQuery itself! Paul Irish has some good videos on things he’s learned from looking at it’s source.

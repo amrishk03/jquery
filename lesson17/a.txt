@@ -1,0 +1,28 @@
+We talked about GET in the last video but didn’t give POST enough attention. So I thought we’d do that here. The big difference with POST is that you nearly always need to pass along data with the request. That data can take many forms, but it might just be an object you have around. The syntax is also easy:
+
+$.post(
+  "/data/process.php",
+  {
+    name: "Susan",
+    job: "Writer"
+  }
+  function(data, textStatus, jqXHR) {
+    // success
+  }
+);
+Notice the second parameter which is an object (essentially JSON) of data. That data can be just about anything (including a string). It’s on you to pass it in such a way that’s useful to your backend.
+
+Back to our form example from the last video, what if you wanted to pass along all the data from the entire form? You also didn’t want to have to update the JavaScript when the form changed. jQuery makes that easy with its serialize() method. Just call it on the form element itself:
+
+$("#my-form").serialize();
+That will look through the entire form and make a query string out of each named input in the form. Then you can use that as the data you past when you $.post().
+
+$("#my-form").on("submit", function() {
+  $.post(
+    "/",
+    $("#my-form").serialize(),
+    function(data, textStatus, jqXHR) {
+      console.log("success");
+    }
+  );
+});

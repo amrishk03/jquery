@@ -1,0 +1,12 @@
+Welcome!
+
+The goal of this course is to take you, you beautiful front end developer you, from someone with very little or no jQuery or JavaScript knowledge and up you to someone who is quite comfortable working with and writing jQuery and JavaScript.
+
+
+There are other courses out there, this one is mine. We’ll make mistakes along the way. We’ll fix them. We’ll talk about theory. We’ll build practical, real things.
+
+jQuery is monstrous in its popularity and ubiquity on the web. It doesn’t do everything, but what it does it does very well and that makes it part of nearly every major websites toolkit.
+
+It is great at all the “DOM” stuff – selecting and manipulating elements on the page. It’s great at handling events. It has a nice API for all kinds of stuff – the “chaining” idea is very nice. It helps tremendously with Ajax. It helps with animation. The world of plugins around it is vast. While doing all this, perhaps the most compelling feature is that it handles the cross-browser problems for you.
+
+We’ll talk about all that in more in this course.

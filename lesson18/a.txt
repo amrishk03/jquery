@@ -1,0 +1,14 @@
+There is a good chance that out in the “real world”, the #1 thing you use Ajax for is sending and receiving JSON data. And for good reason. JSON doesn’t presume any visual structure like HTML does. It’s just raw data and you can do with it what you will, which is often put it into templates. This offloads some of the work from the servers to the clients (browsers). You can learn more about JavaScript templating in another screencast.
+
+jQuery has a special Ajax function just for getting JSON, appropriately named &.getJSON(). It looks extremely similar to GET:
+
+$.getJSON(
+  "http://codepen.io/chriscoyier/pen/EAIJj.js",
+  function(data) {
+    // Success! Do stuff with data.
+    console.log(data);
+  }
+);
+The difference is that the data object in the callback is a ready-to-rock object full of data you can do whatever you want to with. Likely loop through it append stuff to the page.
+
+So far we’ve talked about $.get, $.post, and $.getJSON – but it’s worth noting that these are all just convenience methods that ultimately call $.ajax. If you prefer being very specific about all your Ajax options, you can use that directly.

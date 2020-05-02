@@ -1,0 +1,36 @@
+Templating is an important part of working with JavaScript applications. It’s fairly common that data is available to you, but not in a format that is ready display on screen. That is commonly (but not always) data in the JSON format. That’s a great format for working with in JavaScript, but we still need to format it into something we can use.
+
+For instance, here’s some fictional data we might have on hand:
+
+var data = {
+  movies: [
+    {
+      movieTitle: "Ender's Game",
+      movieDirector: "Gavin Hood",
+      movieImage: "http://s3-us-west-2.amazonaws.com/s.cdpn.io/3/movie-endersgame.jpg"
+    },
+    ...
+  ]
+}
+And ultimately we’d like to make that into:
+
+<div class="module module-movie" style="background-image: url(http://s3-us-west-2.amazonaws.com/s.cdpn.io/3/movie-endersgame.jpg);">
+  <div class="movie-info">
+   <h3 class="movie-title">Ender's Game</h3>
+   <p class="movie-director">Gavin Hood</p>
+  </div>
+</div>
+You might think jQuery is awesome at that. jQuery is full of DOM traversing/manipulation tools. But it doesn’t have a very robust set of DOM creation tools you might say. I believe the jQuery team was considering adding templating at some point, and even toyed with an “official” plugin, but it didn’t take off.
+
+In this video we just don’t do what today is traditionally thought of as templating. We just straight up build a new <div> with jQuery and use string concatenation to build the HTML we need and ultimately inject it onto the page. There is nothing technically incorrect about that, but I try and drive home how this approach can get quickly out of hand.
+
+In just the little bit of JS we write in this video, we’re mixing a variety of concerns/jobs:
+
+Getting the data. We just have it on hand here, but likely this is a bit more complex. Perhaps an async Ajax request with error handling and caching and such.
+Display logic. Deciding what we need to show. How many? Which parts? Based on what?
+Event handling. Our newly-injected divs had event handling added as we created them, rather than delegating.
+Templating. The HTML that we create to accomplish the design, structure the data, and accommodate or needs.
+This is the spaghetti-ish code we finished up with:
+
+
+The next block of videos is going to focus a bunch on templating because that’s super important, but ultimately we’ll be sort of breaking apart all these concerns and ending up with much more organized and maintainable code.

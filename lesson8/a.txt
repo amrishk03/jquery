@@ -1,0 +1,41 @@
+It came up very briefly in the last video: how do you stop the browser from jumping down when you click a hash link? That is the default browser behavior, and fortunately, with JavaScript, we can tell the browser not to do that.
+
+
+The most straightforward way to handle it is like this:
+
+$("a").on("click", function(event) {
+  
+  event.preventDefault();
+
+});
+You’ll see these links don’t jump down like you might think the would:
+
+
+Be careful with that though of course. That will stop a hash link from jumping down the page, but it will also stop a normal link from going to a new URL. So only use it on anchor links that you know you exclusively want to handle in your own JavaScript. You could narrow things down like $("a[href^='#']"). e.g. “The href attribute of the link starts with a hash.”
+
+But often you’ll see this too:
+
+$("a").on("click", function() {
+  
+  return false;
+
+});
+And that accomplishes the same thing. What is happening here is that the return false; is actually doing two things. It is doing the event.preventDefault(); and it is doing another thing: event.stopPropagation();
+
+You can use return false; if you like, you just need to understand what stopPropagation is and be OK with it doing that. I find usually it’s best not to stopPropagation unless you know that you specifically want to do that. What it does is stop the “bubbling” of the DOM event. For instance if you’re DOM is like this:
+
+<nav role='navigation'>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Clients</a></li>
+    <li><a href="#">Contact Us</a></li>
+  </ul>
+</nav>
+Then you click squarely right on the word “Home”, that click event will trigger on the anchor link, then it will bubble up to the list item, then bubble up to the unordered list, then the nav element, all all the way up to the document itself.
+
+When you do stopPropagation, on whatever element’s event you run that on, the bubbling will stop there. Just be aware!
+
+I wrote more about this difference here.
+
+Toward the end of the video I talk about preventing scrolling on an element by preventDefault. I was just totally wrong that you could do that. It just so happens that’s one event that you can’t stop like that. There are ways to prevent it like using CSS (overflow: hidden; – which might be weird) – or getting pretty fancy.

@@ -1,0 +1,36 @@
+As we’ve talked about, jQuery can be thought of as a “select and do” library. We’ve talked about selecting quite a bit, so now let’s talk about some doings. Remember that pattern basically looks like this:
+
+
+// Select something!
+$(".something")
+  // Do something!
+  .hide();
+Rather than working with more theoretical examples, we move right into something real-world-y. We found this Pen by Drew Barontini and forked it.
+
+
+In our example, we hid the credit card form by default. Then we created a link that you could click to slide up and slide down the credit card form. We select the link, then do a slideToggle on the form. Select and do!
+
+We haven’t talked much about events yet, but that’s a huge part of jQuery. An event is something like a mouse clicks, key presses, scrolls, etc. The “do” part of “select and do” often happens after an event. Don’t worry, we’ll talk a lot about events before this series is through. For now, just know that on() is the best/standard way to bind events in jQuery. Bind, meaning “watch for this event on this element or set of elements.”
+
+The basic plan:
+
+$("#link-that-toggles").on("click", function() {
+  $("#thing-to-toggle").slideToggle();
+});
+In our example, the link was literally a link.
+
+toggle
+
+The way that hash links work by default in any browser is that the window will scroll down to the element with the ID that matches that hash link. Sometimes that’s good. I like how it creates a semantic connection between that link and that element. So without any JavaScript, the link still essentially makes sense (especially if you title it something smart).
+
+But sometimes, that hash link jumping behavior is a bummer. We can prevent it in JavaScript using preventDefault. Like this:
+
+$("#link-that-toggles").on("click", function(event) {
+  $("#thing-to-toggle").slideToggle();
+  event.preventDefault();
+});
+We’ll talk more about that coming up.
+
+Of course, jQuery’s own documentation is a fantastic resource for all the “do” aspects of jQuery (methods).
+
+I think the very basic understand of this “select and do” and events really opens up a world of understanding in JavaScript. I know it did for me. At the end of this screencast we take a peak at the current design of CSS-Tricks and see where JavaScript is clearly used to react to some click events and change the UI. Very very similar stuff to what we were doing in the previous demo. For example, setting an active class on things that you click, like this:

@@ -1,0 +1,31 @@
+Another concept video! This is “just one of those thing” you need to understand in jQuery. It is actually a bit unique to jQuery, in that other popular JavaScript libraries in the past have not done it this way.
+
+
+We’ve already covered selectors quite a bit. For instance, you already know that $("p") will select all paragraphs on a page. Not just the first one or some random one, all of them. You can easily imagine there may be many of these on a page. Now imagine what happens when you do:
+
+$("p").hide();
+All of them get hidden right? Right. Not the first one or some random one, all of them. That implicit iteration. Behind the scenes, jQuery automatically loops through the entire set of elements it found, and runs the method you’ve chosen on them. We don’t literally need to write a loop ourselves to do this. Seems fairly obvious if you’re introduction to JavaScript is jQuery, but many libraries in the past have required you to loop over collections of elements yourself.
+
+If you want to, you can still write the loop yourself. That would perhaps look like this, using jQuery looping methods:
+
+$("p").each(function() {
+  $(this).hide();
+});
+That’s just about the same thing. Not necessarily, but you could. That’s explicit iteration.
+
+Sometimes you need to do explicit iteration. Basically, if we need to access the value of this and do something special with it, we’ll need our own loop construct to work with.
+
+The example in this screencast was counting the characters in list items and append that to the end of the string. We’ll need explicit iteration for that.
+
+
+We used jQuery’s each() method here which is perfect for what we need. A useful bit it does for us is gives us a zero-indexed counter each iteration we can access if needed.
+
+$(".there-are-three-of-me").each(function(i) {
+  
+  console.log(i);
+  
+}); 
+
+// 0
+// 1
+// 2

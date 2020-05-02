@@ -1,0 +1,42 @@
+We covered templating with Handlebars in the last video. But Handlebars isn’t the only templating solution on the block. In this video we’ll use the templating available in Underscore.
+
+Why? Well one reason is that you might already be using Underscore on your project. It’s an extremely popular library because, like jQuery, it provides a bunch of useful methods that work cross-browser. As they say:
+
+It’s the tie to go along with jQuery’s tux, and Backbone.js’s suspenders.
+
+If you’re already using Underscore, that would be a big incentive to use it’s templating.
+
+Also in my quick testing, Handlebars 1.0.0 is 14.2 KB gzipped and minified and Underscore is 4.9 KB gzipped and minified. Handlebars simply has more features (e.g. commenting, loops, paths, logic, etc). In our simple demo, we don’t need those features anyway, so it’s not exactly a fair comparison, but oh well we’re just learning.
+
+Rather than having the template in the HTML, we need to define Underscore templates in the JavaScript. We’re back to some string concatenation.
+
+var compiled = _.template(
+  "<div class='module module-movie' style='background-image: url(<%= movieImage %>)'>" + 
+    "<div class='movie-info'>" +
+      "<h3 class='movie-title'>" +
+         "<%= movieTitle %>" + 
+      "</h3>" +
+      "<p class='movie-director'>" + 
+         "<%= movieDirector %>" + 
+      "</p>" + 
+    "</div>" + 
+  "</div>"
+);
+compiled then turns into a function we can call with our data object context and returns the HTML all filled out with that data. To be efficient, we’re going to concatenate the HTML that returns into one big string so we can append it to the DOM just once:
+
+  var i, html = "";
+  for (i = 0; i < data.movies.length; i++) {
+    html += compiled(data.movies[i]);
+  }  
+  $("#movies").append(html);
+In this video we also abstracted away the getting of the data. We created a JSON source, and used jQuery’s $.getJSON() function to get it. Like we would probably have to do in “real life”.
+
+$.getJSON("/path/to/json.js", function(data) {
+
+});
+Our for loop and such that relies on that data goes in the callback there. Or more likely, calls some other well-named function to handle that, keeping things cleanly separated.
+
+Here’s where we ended up:
+
+
+It should be noted that LoDash is 100% compatible with what we’ve done here. I’m not quite sure if LoDash templating is any better/faster/slower/worse than Underscore’s, but I swapped out the libraries and the demo worked just fine.
