@@ -1,40 +1,12 @@
-If you learn any major bit of front end architecture philosophy from this series, learn this one. Just change classes. In this screencast we start going down a major rabbit hole of JavaScript only to stop, catch ourselves, and use CSS instead. When you are changing something visually, that is the domain of CSS. Not only is it good at it, it’s typically more performant and maintains a healthy “separation of concerns” that makes for a long term healthy website.
+Welcome!
 
-After we came to our senses, we simply ended up swapping 1) the button text 2) a data-state attribute on the container.
-
-$(".bigger").on("click", function() {
-  var el = $(this);
-  
-  var module = el.parent();
-  
-  // Swap expanded state
-  module.attr("data-state") == "expanded" 
-    ? module.attr("data-state", "")
-    : module.attr("data-state", "expanded");
-  
-  // Swap button text.
-  el.text() == el.data("text-swap") 
-    ? el.text(el.data("text-original")) 
-    : el.text(el.data("text-swap"));
-  
-});
-Here’s where we ended up:
+The goal of this course is to take you, you beautiful front end developer you, from someone with very little or no jQuery or JavaScript knowledge and up you to someone who is quite comfortable working with and writing jQuery and JavaScript.
 
 
-Yes, this video (and sentiment) is “just change classes!”, and we’re changing a data-* attribute here, but I think of that as the same thing. Sometimes I use data-* attributes just because I like them. I think of them like name-spaced classes, or classes with values. Arguably more useful in CSS than classes and they have the exact same specificity value.
+There are other courses out there, this one is mine. We’ll make mistakes along the way. We’ll fix them. We’ll talk about theory. We’ll build practical, real things.
 
-Does that ? / : syntax look weird? If so, that’s know as a ternary (or “conditional”) operator.
+jQuery is monstrous in its popularity and ubiquity on the web. It doesn’t do everything, but what it does it does very well and that makes it part of nearly every major websites toolkit.
 
-The first line is a test, the next line (or the bit after the ?) is what happens if that test if true, the last line (or the bit after the :) is what happens if that test is false. Perhaps this helps:
+It is great at all the “DOM” stuff – selecting and manipulating elements on the page. It’s great at handling events. It has a nice API for all kinds of stuff – the “chaining” idea is very nice. It helps tremendously with Ajax. It helps with animation. The world of plugins around it is vast. While doing all this, perhaps the most compelling feature is that it handles the cross-browser problems for you.
 
-// The boolean (true/false) test
-module.attr("data-state") == "expanded" 
-  // Do this if the test is true
-  ? module.attr("data-state", "")
-  // Do this is the test if false
-  : module.attr("data-state", "expanded");
-Don’t avoid them just because they look weird, they can be more efficient (and ultimately read just as well, as long as you don’t go nuts) as if/else logic.
-
-Doug Neiner has a good article on the “just change classes” idea. Classes have so much power in CSS. You can hide/show things, move things, change the appearance of things, trigger animations… the sky is the limit. And the higher up in the “tree” (DOM) you apply the class, the more cascading power you have. A class change on the body means you can control anything on the entire page with a single class. And all with a very tiny amount of JavaScript.
-
-Once you buy into this you’ll be a happier developer.
+We’ll talk about all that in more in this course.

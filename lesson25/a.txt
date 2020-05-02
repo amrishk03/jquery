@@ -1,0 +1,111 @@
+We’ve done a pretty good job so far of getting organized. Getting our HTML broken out in a template was a big step. We’re longer muddying the waters so to speak. Our different bits of functionally in JavaScript are broken up into discreet sections, making things easier to understand and maintain. I know we’ve been working with a pretty small demo, but I hope you can imagine how as an app gets more complicated and more lines of code, this organization is incredibly valuable.
+
+JavaScript doesn’t have any “opinion” as it were about organization. That’s likely why some people love it and some people feel lost in it. How you choose to organize it is totally up to you. That’s also likely why some people really latch onto frameworks which, opinionated or not, provide an organizational structure. For instance, Backbone. But that’s another series!
+
+For our demo, we’ll simply organize around an object that we simply create.
+
+var Movies = {
+
+}
+Every thing we’re doing here is related to getting some movies on the page, so we’ll contain it within one “thing” called Movies. Remember we’re just doing whatever makes sense to us organizationally. This has the benefit of only putting one variable into the “global scope” as well. If we did everything at the global scope, it would be a mess of accidentally overriding variables (and functions and whatever) declared elsewhere.
+
+An object like that doesn’t actually “do” anything though. We’ll need to “kick it off”.
+
+var Movies = {
+
+  init: function() {
+
+  }
+
+}
+
+Movies.init();
+Having a function named init is a bit of a standard which allows anyone reading this code to know that the code within there is what runs when this group of code is executed. That should read a bit like a table of contents of what happens with this group of code. We then make other functions (more properties of the Movies object) that do things that we need to do, in discrete chunks. Remember we can call stuff whatever we want, whatever makes sense to us.
+
+var Movies = {
+ 
+  init: function() {
+    this.setUpTemplate();
+    this.getData();
+    this.bindUIActions();
+  },
+  
+  setUpTemplate: function() {
+    // Templating here
+  },
+  
+  getData: function() {
+    // Data getting here 
+  },
+  
+  appendMoviesToPage: function(data) {
+    // Display logic here
+  },
+  
+  bindUIActions: function() {
+    // Event delegating binding here.
+  }
+  
+}
+
+Movies.init();
+Pretty clear eh? You might notice appendMovesToPage isn’t called in the init. That’s because we can’t call that until we have data to send it. That data will come from an Ajax call, meaning we need a callback. So getData will end up calling that one.
+
+Everything else that will fill in here is just moving bits of code that we already have written into the right place.
+
+var Movies = {
+ 
+  init: function() {
+    this.setUpTemplate();
+    this.getData();
+    this.bindUIActions();
+  },
+  
+  setUpTemplate: function() {
+    Movies.compiled = _.template(
+      "<div class='module module-movie' style='background-image: url(<%= movieImage %>)'>" + 
+        "<div class='movie-info'>" +
+          "<h3 class='movie-title'>" +
+             "<%= movieTitle %>" + 
+          "</h3>" +
+          "<p class='movie-director'>" + 
+             "<%= movieDirector %>" + 
+          "</p>" + 
+        "</div>" + 
+      "</div>"
+    );
+  },
+  
+  getData: function() {
+    $.getJSON("http://codepen.io/chriscoyier/pen/0b21d5b4f7fbf4e7858b2ffc8890e007.js", function(data) {
+       Movies.appendMoviesToPage(data);
+    }); 
+  },
+  
+  appendMoviesToPage: function(data) {
+    var i, html = "";
+    for (i = 0; i < data.movies.length; i++) {
+      html += Movies.compiled(data.movies[i]);
+    }  
+    $("#movies").append(html);
+  },
+  
+  bindUIActions: function() {
+    $(document).on("click", ".module-movie", function() {
+      alert("movie added");
+    });
+  }
+  
+}
+
+Movies.init();
+And done.
+
+Let’s look at the four concerns we outlined earlier and see what we did about them.
+
+Getting the data. We moved the JSON into a file we could hit with $.getJSON, as it’s likely we would need to do in a real situation. Other than just practice that, this will allow us to write tests around it.
+Display logic. We now have a very specific function appendMoviesToPage which is called when we are ready to append our movies to the page. Single-purpose functions are great for (again) organization, understandability, and maintainability.
+Event handling. Using event delegation, we’re no longer mixing this “business logic” in with the display logic or template. We don’t even have to worry about source order execution, because we’re ultimately attaching the events to the document. Our functionality will work no matter when/how the template is appended to the page.
+Templating. Totally moved to use libraries meant specifically for templating.
+I’d call that win. Here’s where we ended up:
+
